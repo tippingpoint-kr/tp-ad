@@ -3,7 +3,7 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   // 사용자가 요청한 main.png 이미지의 직접 링크 주소입니다.
-  const backgroundImageUrl = "https://lh3.googleusercontent.com/d/1rbNDsG3wBkOzpwxIY0AW_wWtVRUbBSyp"; 
+  const backgroundImageUrl = "/images/main.png"; 
 
   return (
     <div className="relative h-screen flex items-center bg-zinc-900 overflow-hidden">

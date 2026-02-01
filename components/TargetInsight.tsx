@@ -3,7 +3,7 @@ import React from 'react';
 
 const TargetInsight: React.FC = () => {
   // 사용자가 제공한 channel.png 이미지 구글 드라이브 ID
-  const channelImageUrl = "https://lh3.googleusercontent.com/d/1SlzJvo77NeXLLBS-yTuFNw07yIS4wK8j";
+  const channelImageUrl = "/images/channel.png";
 
   return (
     <div className="py-24 bg-white overflow-hidden">
