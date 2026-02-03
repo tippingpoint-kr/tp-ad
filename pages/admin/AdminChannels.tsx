@@ -307,12 +307,14 @@ const AdminChannels: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">구독자수</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {formData.category === 'press' ? '월 평균 페이지뷰' : '구독자수'}
+                  </label>
                   <input
                     type="text"
                     value={formData.subscribers}
                     onChange={(e) => setFormData({ ...formData, subscribers: e.target.value })}
-                    placeholder="예: 10.2만"
+                    placeholder={formData.category === 'press' ? '예: 50만' : '예: 10.2만'}
                     className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
                   />
                 </div>
@@ -348,27 +350,31 @@ const AdminChannels: React.FC = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 1 (YouTube/Instagram)</label>
-                <input
-                  type="url"
-                  value={formData.reference_url}
-                  onChange={(e) => setFormData({ ...formData, reference_url: e.target.value })}
-                  placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
-                />
-              </div>
+              {formData.category !== 'press' && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 1 (YouTube/Instagram)</label>
+                    <input
+                      type="url"
+                      value={formData.reference_url}
+                      onChange={(e) => setFormData({ ...formData, reference_url: e.target.value })}
+                      placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 2 (YouTube/Instagram)</label>
-                <input
-                  type="url"
-                  value={formData.reference_url_2}
-                  onChange={(e) => setFormData({ ...formData, reference_url_2: e.target.value })}
-                  placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
-                />
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 2 (YouTube/Instagram)</label>
+                    <input
+                      type="url"
+                      value={formData.reference_url_2}
+                      onChange={(e) => setFormData({ ...formData, reference_url_2: e.target.value })}
+                      placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
+                      className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
+                    />
+                  </div>
+                </>
+              )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">표시 순서</label>

@@ -27,12 +27,19 @@ interface Channel {
   followers: string;
   tags: string[];
   description: string;
+  category: string;
   demographics: {
     ageRange: string;
     gender: string;
   };
   referenceUrl1: string;
   referenceUrl2: string;
+}
+
+interface NewsItem {
+  title: string;
+  thumbnail: string;
+  url: string;
 }
 
 interface ChannelModalProps {
@@ -54,11 +61,26 @@ const getEmbedUrl = (url: string): string | null => {
 };
 
 const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loadingNews, setLoadingNews] = useState(false);
+
+  useEffect(() => {
+    if (channel?.category === 'press') {
+      setLoadingNews(true);
+      fetch('/api/news/trotmagazine')
+        .then(res => res.json())
+        .then(data => setNews(data))
+        .catch(err => console.error('Error fetching news:', err))
+        .finally(() => setLoadingNews(false));
+    }
+  }, [channel]);
+
   if (!channel) return null;
 
   const embed1 = getEmbedUrl(channel.referenceUrl1);
   const embed2 = getEmbedUrl(channel.referenceUrl2);
   const hasReferences = embed1 || embed2;
+  const isPress = channel.category === 'press';
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -97,7 +119,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
               )}
             </div>
 
-            <p className="text-gray-600 mb-2">구독자 <span className="font-bold text-black">{channel.followers}</span></p>
+            <p className="text-gray-600 mb-2">{isPress ? '월 평균 페이지뷰' : '구독자'} <span className="font-bold text-black">{channel.followers}</span></p>
             
             <p className="text-gray-600 text-sm max-w-md mx-auto mb-8">
               {channel.description}
@@ -115,7 +137,35 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
             </div>
           </div>
 
-          {hasReferences && (
+          {isPress ? (
+            <div className="border-t pt-8">
+              <h3 className="text-center font-bold text-xl mb-6">최신 뉴스</h3>
+              {loadingNews ? (
+                <p className="text-center text-gray-400">뉴스를 불러오는 중...</p>
+              ) : news.length > 0 ? (
+                <div className="space-y-4">
+                  {news.map((item, idx) => (
+                    <a 
+                      key={idx}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors"
+                    >
+                      <img 
+                        src={item.thumbnail} 
+                        alt={item.title} 
+                        className="w-24 h-16 object-cover rounded-lg flex-shrink-0"
+                      />
+                      <p className="text-sm font-medium text-gray-800 line-clamp-2">{item.title}</p>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-gray-400">뉴스를 불러올 수 없습니다.</p>
+              )}
+            </div>
+          ) : hasReferences && (
             <div className="border-t pt-8">
               <h3 className="text-center font-bold text-xl mb-6">REFERENCE</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -185,6 +235,7 @@ const AdvertisingMedia: React.FC = () => {
     followers: ch.subscribers || '0',
     tags: ch.hashtags ? ch.hashtags.split(' ').filter(t => t) : [],
     description: ch.description || '',
+    category: ch.category,
     demographics: {
       ageRange: ch.age_demographics || '',
       gender: ch.gender_ratio || '',
