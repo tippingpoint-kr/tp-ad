@@ -225,25 +225,27 @@ const AdvertisingMedia: React.FC = () => {
       <Header isSubpage={true} />
 
       <div className="pt-24 flex flex-1">
-        <aside className="w-64 fixed left-0 top-24 bottom-0 bg-gray-50 border-r border-gray-100 p-8">
-          <nav className="space-y-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as TabType)}
-                className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
-                  activeTab === tab.id
-                    ? 'bg-black text-white'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
-              >
-                {tab.name}
-              </button>
-            ))}
-          </nav>
+        <aside className="w-64 flex-shrink-0 bg-gray-50 border-r border-gray-100 p-8">
+          <div className="sticky top-24">
+            <nav className="space-y-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as TabType)}
+                  className={`w-full text-left px-4 py-3 rounded-xl font-bold transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-black text-white'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </nav>
+          </div>
         </aside>
 
-        <main className="ml-64 flex-1 p-12">
+        <main className="flex-1 p-12">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-gray-500 mb-4">{subtitle}</p>
@@ -317,9 +319,7 @@ const AdvertisingMedia: React.FC = () => {
         </main>
       </div>
 
-      <div className="ml-64">
-        <Footer />
-      </div>
+      <Footer />
 
       <ChannelModal channel={selectedChannel} onClose={() => setSelectedChannel(null)} />
     </div>
