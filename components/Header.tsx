@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,31 +20,47 @@ const Header: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <a href="#hero" className="flex items-center space-x-2 group">
+        <Link to="/" className="flex items-center space-x-2 group">
           <div className="flex flex-col">
             <span className={`text-2xl font-black tracking-tighter ${isScrolled ? 'text-black' : 'text-white'}`}>
               TIPPING<span className="text-tp-red">!</span>POINT
             </span>
           </div>
-        </a>
+        </Link>
         
         <nav className="hidden md:flex space-x-10">
-          {[
-            { name: '서비스 소개', id: 'target' },
-            { name: '성과 지표', id: 'stats' },
-            { name: '광고 매체', id: 'media' },
-            { name: '문의하기', id: 'contact' }
-          ].map((item, idx) => (
-            <a 
-              key={idx}
-              href={`#${item.id}`}
-              className={`text-sm font-bold hover:text-tp-red transition-colors ${
-                isScrolled ? 'text-gray-800' : 'text-white'
-              }`}
-            >
-              {item.name}
-            </a>
-          ))}
+          <a 
+            href="#target"
+            className={`text-sm font-bold hover:text-tp-red transition-colors ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
+          >
+            서비스 소개
+          </a>
+          <a 
+            href="#stats"
+            className={`text-sm font-bold hover:text-tp-red transition-colors ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
+          >
+            성과 지표
+          </a>
+          <Link 
+            to="/advertising-media"
+            className={`text-sm font-bold hover:text-tp-red transition-colors ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
+          >
+            광고 매체
+          </Link>
+          <a 
+            href="#contact"
+            className={`text-sm font-bold hover:text-tp-red transition-colors ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
+          >
+            문의하기
+          </a>
         </nav>
 
         <a 
