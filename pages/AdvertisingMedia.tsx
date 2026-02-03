@@ -86,7 +86,6 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
               ))}
             </div>
 
-            <p className="text-gray-400 text-xs mb-6">* 해당 로고 버튼 클릭시 해당 채널로 연결됩니다.</p>
 
             <div className="w-20 h-20 mx-auto mb-4 rounded-2xl overflow-hidden">
               {channel.image ? (
