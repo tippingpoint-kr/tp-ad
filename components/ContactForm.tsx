@@ -10,10 +10,36 @@ const ContactForm: React.FC = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('문의가 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-    setFormData({ company: '', name: '', email: '', phone: '', message: '' });
+    setSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name: formData.company,
+          contact_name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          content: formData.message,
+        }),
+      });
+      
+      if (response.ok) {
+        alert('문의가 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        setFormData({ company: '', name: '', email: '', phone: '', message: '' });
+      } else {
+        alert('문의 접수에 실패했습니다. 다시 시도해 주세요.');
+      }
+    } catch (error) {
+      alert('문의 접수에 실패했습니다. 다시 시도해 주세요.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -109,8 +135,12 @@ const ContactForm: React.FC = () => {
               className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 focus:border-tp-red focus:ring-1 focus:ring-tp-red focus:outline-none transition-all placeholder:text-gray-300 text-gray-800 resize-none"
             />
           </div>
-          <button type="submit" className="w-full bg-black text-white py-5 rounded-xl font-black text-lg hover:bg-tp-red transition-all mt-4 active:scale-[0.98]">
-            문의 보내기
+          <button 
+            type="submit" 
+            disabled={submitting}
+            className="w-full bg-black text-white py-5 rounded-xl font-black text-lg hover:bg-tp-red transition-all mt-4 active:scale-[0.98] disabled:opacity-50"
+          >
+            {submitting ? '보내는 중...' : '문의 보내기'}
           </button>
         </form>
       </div>

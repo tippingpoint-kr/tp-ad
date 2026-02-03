@@ -2,6 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tippingpoint-admin-secret-key-2026';
 
+if (!process.env.JWT_SECRET) {
+  console.warn('Warning: JWT_SECRET not set. Using default secret for development.');
+}
+
 const authMiddleware = (req, res, next) => {
   const token = req.cookies.adminToken || req.headers.authorization?.split(' ')[1];
   

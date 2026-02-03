@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 type TabType = 'fandom' | 'general' | 'press' | 'blog' | 'reputation';
+
+interface DBChannel {
+  id: number;
+  name: string;
+  category: string;
+  logo_url: string | null;
+  hashtags: string | null;
+  subscribers: string | null;
+  age_demographics: string | null;
+  gender_ratio: string | null;
+  description: string | null;
+  reference_url: string | null;
+}
 
 interface Channel {
   id: string;
@@ -118,6 +131,8 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
 const AdvertisingMedia: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('fandom');
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
+  const [dbChannels, setDbChannels] = useState<DBChannel[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const tabs = [
     { id: 'fandom', name: '시니어 팬덤 채널' },
@@ -127,77 +142,38 @@ const AdvertisingMedia: React.FC = () => {
     { id: 'reputation', name: '온라인평판관리' },
   ];
 
-  const fandomChannels: Channel[] = [
-    { 
-      id: '1',
-      name: '후덕남', 
-      handle: '@HUDUCK_YAM',
-      image: '/images/channel-huduck.png', 
-      followers: '91K',
-      tags: ['#유머', '#이슈', '#예능', '#먹방'],
-      description: '후덕남은 음식, 먹방 등 식품에 관련된 콘텐츠와 각종 모든 이슈를 다루고 있어 폭넓은 바이럴 광고가 가능한 채널입니다.',
-      demographics: { ageRange: '20-40', gender: '남 32% 여 68%' },
-      references: [
-        { title: '경험 없으면 절대 모른다는 대한민국 장례식의 현실..', views: '371만', likes: '1.8만', comments: '480', image: '' },
-        { title: '냉부 출신이라 15초 남아도 손 안떨림', views: '410만', likes: '7.3만', comments: '215', image: '' },
-      ]
-    },
-    { 
-      id: '2',
-      name: '영웅대학', 
-      handle: '@HERO_UNIV',
-      image: '/images/channel-hero.png', 
-      followers: '120K',
-      tags: ['#트로트', '#임영웅', '#팬덤'],
-      description: '임영웅 팬덤을 위한 전문 채널로, 트로트 시니어 팬층에게 자연스러운 노출이 가능합니다.',
-      demographics: { ageRange: '40-60', gender: '남 25% 여 75%' },
-      references: [
-        { title: '임영웅 콘서트 비하인드', views: '250만', likes: '3.2만', comments: '890', image: '' },
-        { title: '팬들이 직접 만든 응원 영상', views: '180만', likes: '2.1만', comments: '456', image: '' },
-      ]
-    },
-    { 
-      id: '3',
-      name: '트롯매거진', 
-      handle: '@TROT_MAG',
-      image: '/images/channel-trot.png', 
-      followers: '85K',
-      tags: ['#트로트', '#뉴스', '#인터뷰'],
-      description: '트로트 관련 최신 뉴스와 아티스트 인터뷰를 제공하는 공식 미디어 채널입니다.',
-      demographics: { ageRange: '35-55', gender: '남 40% 여 60%' },
-      references: [
-        { title: '2026 트로트 어워즈 현장', views: '320만', likes: '4.5만', comments: '1.2천', image: '' },
-        { title: '신인 트로트 가수 특집', views: '95만', likes: '1.1만', comments: '320', image: '' },
-      ]
-    },
-  ];
+  useEffect(() => {
+    const fetchChannels = async () => {
+      try {
+        const response = await fetch(`/api/channels?category=${activeTab}`);
+        const data = await response.json();
+        setDbChannels(data);
+      } catch (error) {
+        console.error('Error fetching channels:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchChannels();
+  }, [activeTab]);
 
-  const generalChannels: Channel[] = [
-    { 
-      id: '4',
-      name: '시니어라이프', 
-      handle: '@SENIOR_LIFE',
-      image: '/images/channel-senior.png', 
-      followers: '75K',
-      tags: ['#시니어', '#라이프스타일', '#건강'],
-      description: '5070 액티브 시니어를 위한 라이프스타일 콘텐츠를 제공합니다.',
-      demographics: { ageRange: '50-70', gender: '남 45% 여 55%' },
-      references: [
-        { title: '건강한 노후를 위한 운동법', views: '150만', likes: '2.3만', comments: '560', image: '' },
-        { title: '시니어 여행 추천 코스', views: '120만', likes: '1.8만', comments: '380', image: '' },
-      ]
+  const convertDBChannel = (ch: DBChannel): Channel => ({
+    id: String(ch.id),
+    name: ch.name,
+    handle: `@${ch.name.toUpperCase().replace(/\s/g, '_')}`,
+    image: ch.logo_url || '',
+    followers: ch.subscribers || '0',
+    tags: ch.hashtags ? ch.hashtags.split(' ').filter(t => t) : [],
+    description: ch.description || '',
+    demographics: {
+      ageRange: ch.age_demographics || '',
+      gender: ch.gender_ratio || '',
     },
-  ];
+    references: [],
+  });
 
-  const getChannels = () => {
-    switch (activeTab) {
-      case 'fandom':
-        return fandomChannels;
-      case 'general':
-        return generalChannels;
-      default:
-        return [];
-    }
+  const getChannels = (): Channel[] => {
+    return dbChannels.map(convertDBChannel);
   };
 
   const getTabTitle = () => {
@@ -283,7 +259,11 @@ const AdvertisingMedia: React.FC = () => {
               )}
             </div>
 
-            {channels.length > 0 && (
+            {loading ? (
+              <div className="border-t border-gray-200 pt-12">
+                <p className="text-center text-gray-400">채널을 불러오는 중...</p>
+              </div>
+            ) : channels.length > 0 ? (
               <div className="border-t border-gray-200 pt-12">
                 <div className="flex items-center gap-4 mb-8">
                   <h2 className="text-tp-red font-bold text-xl">대표 {tabs.find(t => t.id === activeTab)?.name}</h2>
@@ -298,9 +278,13 @@ const AdvertisingMedia: React.FC = () => {
                       onClick={() => setSelectedChannel(channel)}
                     >
                       <div className="w-48 h-48 mx-auto mb-4 rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
-                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                          <span className="text-4xl font-black text-gray-400">{channel.name.charAt(0)}</span>
-                        </div>
+                        {channel.image ? (
+                          <img src={channel.image} alt={channel.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                            <span className="text-4xl font-black text-gray-400">{channel.name.charAt(0)}</span>
+                          </div>
+                        )}
                       </div>
                       <h3 className="font-bold text-lg mb-1">{channel.name}</h3>
                       <p className="text-gray-500 text-sm">팔로워 {channel.followers}</p>
@@ -308,9 +292,7 @@ const AdvertisingMedia: React.FC = () => {
                   ))}
                 </div>
               </div>
-            )}
-
-            {channels.length === 0 && (
+            ) : (
               <div className="border-t border-gray-200 pt-12">
                 <p className="text-center text-gray-400">콘텐츠 준비 중입니다.</p>
               </div>
