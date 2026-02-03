@@ -43,7 +43,7 @@ interface ChannelModalProps {
 const getEmbedUrl = (url: string): string | null => {
   if (!url) return null;
   if (url.includes('youtube.com') || url.includes('youtu.be')) {
-    const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^&?\/\s]+)/)?.[1];
+    const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([^&?\/\s]+)/)?.[1];
     if (videoId) return `https://www.youtube.com/embed/${videoId}`;
   }
   if (url.includes('instagram.com')) {
