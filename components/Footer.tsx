@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
           <div className="pt-8 border-t border-white/5 space-y-1 text-xs text-gray-500">
             <p>회사명: 티핑포인트 | 대표이사: 남시우 | 설립일: 2024.01.22</p>
             <p>주소: 경기도 평택시 고덕여염로 118, SBC 716호 | 사업영역: 미디어콘텐츠창작업, 포털 및 기타 인터넷 정보 매개 서비스업</p>
-            <p>© 2025 Tippingpoint Corp. All rights reserved.</p>
+            <p>© 2025 Tippingpoint C<a href="/admin/login" className="hover:text-gray-500">o</a>rp. All rights reserved.</p>
           </div>
         </div>
       </div>
