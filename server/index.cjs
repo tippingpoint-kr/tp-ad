@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const pool = require('./db');
+const pool = require('./db.cjs');
 
-const authRoutes = require('./routes/auth');
-const channelRoutes = require('./routes/channels');
-const inquiryRoutes = require('./routes/inquiries');
-const documentRoutes = require('./routes/documents');
+const authRoutes = require('./routes/auth.cjs');
+const channelRoutes = require('./routes/channels.cjs');
+const inquiryRoutes = require('./routes/inquiries.cjs');
+const documentRoutes = require('./routes/documents.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
