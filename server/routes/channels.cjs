@@ -70,18 +70,18 @@ router.post('/', authMiddleware, upload.single('logo'), async (req, res) => {
   try {
     const {
       name, category, hashtags, subscribers, age_demographics,
-      gender_ratio, description, reference_url, display_order
+      gender_ratio, description, reference_url, reference_url_2, display_order
     } = req.body;
     
     const logo_url = req.file ? `/uploads/logos/${req.file.filename}` : null;
     
     const result = await pool.query(
       `INSERT INTO channels (name, category, logo_url, hashtags, subscribers, 
-       age_demographics, gender_ratio, description, reference_url, display_order)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       age_demographics, gender_ratio, description, reference_url, reference_url_2, display_order)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING *`,
       [name, category, logo_url, hashtags, subscribers, age_demographics, 
-       gender_ratio, description, reference_url, display_order || 0]
+       gender_ratio, description, reference_url, reference_url_2, display_order || 0]
     );
     
     res.json(result.rows[0]);
@@ -96,22 +96,22 @@ router.put('/:id', authMiddleware, upload.single('logo'), async (req, res) => {
     const { id } = req.params;
     const {
       name, category, hashtags, subscribers, age_demographics,
-      gender_ratio, description, reference_url, display_order
+      gender_ratio, description, reference_url, reference_url_2, display_order
     } = req.body;
     
     let query = `UPDATE channels SET 
       name = $1, category = $2, hashtags = $3, subscribers = $4,
       age_demographics = $5, gender_ratio = $6, description = $7,
-      reference_url = $8, display_order = $9, updated_at = NOW()`;
+      reference_url = $8, reference_url_2 = $9, display_order = $10, updated_at = NOW()`;
     
     const params = [name, category, hashtags, subscribers, age_demographics,
-      gender_ratio, description, reference_url, display_order || 0];
+      gender_ratio, description, reference_url, reference_url_2, display_order || 0];
     
     if (req.file) {
-      query += `, logo_url = $10 WHERE id = $11 RETURNING *`;
+      query += `, logo_url = $11 WHERE id = $12 RETURNING *`;
       params.push(`/uploads/logos/${req.file.filename}`, id);
     } else {
-      query += ` WHERE id = $10 RETURNING *`;
+      query += ` WHERE id = $11 RETURNING *`;
       params.push(id);
     }
     

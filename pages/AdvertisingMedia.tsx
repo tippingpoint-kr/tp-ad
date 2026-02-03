@@ -16,6 +16,7 @@ interface DBChannel {
   gender_ratio: string | null;
   description: string | null;
   reference_url: string | null;
+  reference_url_2: string | null;
 }
 
 interface Channel {
@@ -30,13 +31,8 @@ interface Channel {
     ageRange: string;
     gender: string;
   };
-  references: {
-    title: string;
-    views: string;
-    likes: string;
-    comments: string;
-    image: string;
-  }[];
+  referenceUrl1: string;
+  referenceUrl2: string;
 }
 
 interface ChannelModalProps {
@@ -44,8 +40,25 @@ interface ChannelModalProps {
   onClose: () => void;
 }
 
+const getEmbedUrl = (url: string): string | null => {
+  if (!url) return null;
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^&?\/\s]+)/)?.[1];
+    if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+  }
+  if (url.includes('instagram.com')) {
+    const match = url.match(/instagram\.com\/(?:p|reel)\/([^\/\?]+)/);
+    if (match) return `https://www.instagram.com/p/${match[1]}/embed`;
+  }
+  return null;
+};
+
 const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
   if (!channel) return null;
+
+  const embed1 = getEmbedUrl(channel.referenceUrl1);
+  const embed2 = getEmbedUrl(channel.referenceUrl2);
+  const hasReferences = embed1 || embed2;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -73,15 +86,19 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
               ))}
             </div>
 
-            <p className="text-gray-400 text-xs mb-6">* 해당 SNS 버튼 클릭시 해당 홈페이지로 연결됩니다.</p>
+            <p className="text-gray-400 text-xs mb-6">* 해당 로고 버튼 클릭시 해당 채널로 연결됩니다.</p>
 
-            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center">
-              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
-              </svg>
+            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl overflow-hidden">
+              {channel.image ? (
+                <img src={channel.image} alt={channel.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-2xl font-black text-gray-400">{channel.name.charAt(0)}</span>
+                </div>
+              )}
             </div>
 
-            <p className="text-gray-600 mb-2">Follower <span className="font-bold text-black">{channel.followers}</span></p>
+            <p className="text-gray-600 mb-2">구독자 <span className="font-bold text-black">{channel.followers}</span></p>
             
             <p className="text-gray-600 text-sm max-w-md mx-auto mb-8">
               {channel.description}
@@ -99,29 +116,33 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
             </div>
           </div>
 
-          <div className="border-t pt-8">
-            <h3 className="text-center font-bold text-xl mb-6">REFERENCE</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {channel.references.map((ref, idx) => (
-                <div key={idx} className="border rounded-xl overflow-hidden">
-                  <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                    <span className="text-gray-400 text-sm">{ref.title}</span>
+          {hasReferences && (
+            <div className="border-t pt-8">
+              <h3 className="text-center font-bold text-xl mb-6">REFERENCE</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {embed1 && (
+                  <div className="aspect-video rounded-xl overflow-hidden">
+                    <iframe 
+                      src={embed1} 
+                      className="w-full h-full" 
+                      allowFullScreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    />
                   </div>
-                  <div className="p-3">
-                    <div className="flex items-center gap-3 text-gray-400 text-xs mb-2">
-                      <span>♡</span>
-                      <span>💬</span>
-                      <span>↗</span>
-                      <span className="ml-auto">🔖</span>
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      조회 {ref.views} · 좋아요 {ref.likes} · 댓글 {ref.comments}
-                    </p>
+                )}
+                {embed2 && (
+                  <div className="aspect-video rounded-xl overflow-hidden">
+                    <iframe 
+                      src={embed2} 
+                      className="w-full h-full" 
+                      allowFullScreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    />
                   </div>
-                </div>
-              ))}
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -169,7 +190,8 @@ const AdvertisingMedia: React.FC = () => {
       ageRange: ch.age_demographics || '',
       gender: ch.gender_ratio || '',
     },
-    references: [],
+    referenceUrl1: ch.reference_url || '',
+    referenceUrl2: ch.reference_url_2 || '',
   });
 
   const getChannels = (): Channel[] => {

@@ -11,6 +11,7 @@ interface Channel {
   gender_ratio: string | null;
   description: string | null;
   reference_url: string | null;
+  reference_url_2: string | null;
   display_order: number;
 }
 
@@ -38,6 +39,7 @@ const AdminChannels: React.FC = () => {
     gender_ratio: '',
     description: '',
     reference_url: '',
+    reference_url_2: '',
     display_order: 0,
   });
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -118,6 +120,7 @@ const AdminChannels: React.FC = () => {
       gender_ratio: channel.gender_ratio || '',
       description: channel.description || '',
       reference_url: channel.reference_url || '',
+      reference_url_2: channel.reference_url_2 || '',
       display_order: channel.display_order,
     });
     setShowModal(true);
@@ -133,6 +136,7 @@ const AdminChannels: React.FC = () => {
       gender_ratio: '',
       description: '',
       reference_url: '',
+      reference_url_2: '',
       display_order: 0,
     });
     setLogoFile(null);
@@ -344,26 +348,36 @@ const AdminChannels: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL</label>
-                  <input
-                    type="url"
-                    value={formData.reference_url}
-                    onChange={(e) => setFormData({ ...formData, reference_url: e.target.value })}
-                    placeholder="https://"
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">표시 순서</label>
-                  <input
-                    type="number"
-                    value={formData.display_order}
-                    onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 1 (YouTube/Instagram)</label>
+                <input
+                  type="url"
+                  value={formData.reference_url}
+                  onChange={(e) => setFormData({ ...formData, reference_url: e.target.value })}
+                  placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">레퍼런스 URL 2 (YouTube/Instagram)</label>
+                <input
+                  type="url"
+                  value={formData.reference_url_2}
+                  onChange={(e) => setFormData({ ...formData, reference_url_2: e.target.value })}
+                  placeholder="https://youtube.com/watch?v=... 또는 https://instagram.com/p/..."
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">표시 순서</label>
+                <input
+                  type="number"
+                  value={formData.display_order}
+                  onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#E2002D]"
+                />
               </div>
 
               <div className="flex justify-end gap-3 pt-4">
