@@ -37,32 +37,47 @@ const fetchNews = async () => {
     const html = await response.text();
     
     const news = [];
-    const regex = /\[!\[(.*?)\]\((https:\/\/cdn\.trotmagazine\.co\.kr\/news\/photo\/\d+\/\d+_\d+_\d+\.png)\)\]\((https:\/\/www\.trotmagazine\.co\.kr\/news\/articleView\.html\?idxno=\d+)\)\s*\[\*\*(.*?)\*\*\]/g;
+    const seen = new Set();
     
-    let match;
-    while ((match = regex.exec(html)) !== null && news.length < 5) {
-      news.push({
-        title: match[4],
-        thumbnail: match[2],
-        url: match[3],
-      });
+    const itemRegex = /<div class="item">([\s\S]*?)<\/div>\s*<\/div>/g;
+    let itemMatch;
+    
+    while ((itemMatch = itemRegex.exec(html)) !== null && news.length < 5) {
+      const itemHtml = itemMatch[1];
+      
+      const urlMatch = itemHtml.match(/href="(https:\/\/www\.trotmagazine\.co\.kr\/news\/articleView\.html\?idxno=\d+)"/);
+      const titleMatch = itemHtml.match(/<H2[^>]*class="auto-titles[^"]*"[^>]*>([^<]+)<\/H2>/);
+      const imgMatch = itemHtml.match(/<img[^>]*src="(https:\/\/cdn\.trotmagazine\.co\.kr\/news\/thumbnail\/[^"]+)"[^>]*alt="([^"]*)"[^>]*>/);
+      
+      if (urlMatch && titleMatch && !seen.has(urlMatch[1])) {
+        seen.add(urlMatch[1]);
+        news.push({
+          title: titleMatch[1].trim(),
+          thumbnail: imgMatch ? imgMatch[1] : '',
+          url: urlMatch[1],
+        });
+      }
     }
     
     if (news.length === 0) {
-      const altRegex = /\[!\[(.*?)\]\((https:\/\/cdn\.trotmagazine\.co\.kr\/news\/thumbnail\/[^)]+)\)\]\((https:\/\/www\.trotmagazine\.co\.kr\/news\/articleView\.html\?idxno=\d+)\)\s*\[\*\*(.*?)\*\*\]/g;
-      while ((match = altRegex.exec(html)) !== null && news.length < 5) {
-        news.push({
-          title: match[4],
-          thumbnail: match[2],
-          url: match[3],
-        });
+      const altRegex = /<a href="(https:\/\/www\.trotmagazine\.co\.kr\/news\/articleView\.html\?idxno=\d+)"[^>]*>[\s\S]*?<H2[^>]*class="auto-titles[^"]*"[^>]*>([^<]+)<\/H2>/g;
+      let altMatch;
+      while ((altMatch = altRegex.exec(html)) !== null && news.length < 5) {
+        if (!seen.has(altMatch[1])) {
+          seen.add(altMatch[1]);
+          news.push({
+            title: altMatch[2].trim(),
+            thumbnail: '',
+            url: altMatch[1],
+          });
+        }
       }
     }
     
     if (news.length > 0) {
       cachedNews = news;
       lastFetchTime = new Date();
-      console.log(`News refreshed at ${lastFetchTime.toISOString()}`);
+      console.log(`News refreshed at ${lastFetchTime.toISOString()}, found ${news.length} articles`);
     }
     
     return news;
