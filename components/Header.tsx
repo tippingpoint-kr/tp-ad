@@ -78,7 +78,9 @@ const Header: React.FC<HeaderProps> = ({ isSubpage = false }) => {
         </nav>
 
         <a 
-          href={isOnSubpage ? "/#contact" : "#contact"}
+          href="https://open.kakao.com/o/sq34Yqei"
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-tp-red text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-black transition-all inline-block"
         >
           광고 문의
