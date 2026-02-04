@@ -152,11 +152,17 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
                       rel="noopener noreferrer"
                       className="flex gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors"
                     >
-                      <img 
-                        src={item.thumbnail} 
-                        alt={item.title} 
-                        className="w-24 h-16 object-cover rounded-lg flex-shrink-0"
-                      />
+                      {item.thumbnail ? (
+                        <img 
+                          src={item.thumbnail} 
+                          alt={item.title} 
+                          className="w-24 h-16 object-cover rounded-lg flex-shrink-0"
+                        />
+                      ) : (
+                        <div className="w-24 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg flex-shrink-0 flex items-center justify-center">
+                          <span className="text-pink-500 text-xs font-bold">NEWS</span>
+                        </div>
+                      )}
                       <p className="text-sm font-medium text-gray-800 line-clamp-2">{item.title}</p>
                     </a>
                   ))}
