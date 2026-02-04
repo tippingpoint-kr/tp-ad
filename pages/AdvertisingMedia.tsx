@@ -378,7 +378,7 @@ const AdvertisingMedia: React.FC = () => {
               <p className="text-gray-500 mb-4">{subtitle}</p>
               <h1 className="text-5xl md:text-7xl font-black italic mb-8">{title}</h1>
               
-              {(activeTab === 'fandom' || activeTab === 'general') && (
+              {activeTab === 'fandom' && (
                 <>
                   <p className="text-tp-red font-bold text-lg mb-4">
                     "시니어의 마음을 가장 잘 아는 파트너, 티핑포인트입니다."
@@ -388,6 +388,20 @@ const AdvertisingMedia: React.FC = () => {
                   </p>
                   <p className="text-gray-700">
                     브랜드가 전하고 싶은 메시지를 시니어가 가장 좋아하는 언어로 번역하여, 강력한 팬덤의 지지를 이끌어내는 최상의 마케팅 솔루션을 제공합니다.
+                  </p>
+                </>
+              )}
+
+              {activeTab === 'general' && (
+                <>
+                  <p className="text-tp-red font-bold text-lg mb-4">
+                    "트로트 트렌드의 중심에서 시니어의 라이프스타일을 선도합니다."
+                  </p>
+                  <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                    티핑포인트는 특정 팬덤에 국한되지 않고, 트로트 산업 전반의 이슈와 다양한 아티스트의 소식을 발 빠르게 전하는 종합 미디어 채널을 운영합니다. '트롯매거진', '트롯연구소' 등 각기 다른 전문성을 가진 채널 네트워크를 통해 시니어 세대의 관심사를 정밀하게 파악하고 최적화된 콘텐츠를 매일 생산합니다.
+                  </p>
+                  <p className="text-gray-700">
+                    시니어가 가장 신뢰하는 채널을 통해 브랜드의 메시지를 전달하여, 광범위한 시니어 시장에서 확실한 존재감을 각인시켜 드립니다.
                   </p>
                 </>
               )}
