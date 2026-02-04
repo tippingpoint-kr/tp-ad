@@ -79,7 +79,8 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
 
   const embed1 = getEmbedUrl(channel.referenceUrl1);
   const embed2 = getEmbedUrl(channel.referenceUrl2);
-  const hasReferences = embed1 || embed2;
+  const isBlog = channel.category === 'blog';
+  const hasReferences = isBlog ? (channel.referenceUrl1 || channel.referenceUrl2) : (embed1 || embed2);
   const isPress = channel.category === 'press';
 
   return (
@@ -174,28 +175,59 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
           ) : hasReferences && (
             <div className="border-t pt-8">
               <h3 className="text-center font-bold text-xl mb-6">REFERENCE</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {embed1 && (
-                  <div className="aspect-video rounded-xl overflow-hidden">
-                    <iframe 
-                      src={embed1} 
-                      className="w-full h-full" 
-                      allowFullScreen
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    />
-                  </div>
-                )}
-                {embed2 && (
-                  <div className="aspect-video rounded-xl overflow-hidden">
-                    <iframe 
-                      src={embed2} 
-                      className="w-full h-full" 
-                      allowFullScreen
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    />
-                  </div>
-                )}
-              </div>
+              {isBlog ? (
+                <div className="flex flex-col gap-3">
+                  {channel.referenceUrl1 && (
+                    <a 
+                      href={channel.referenceUrl1}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 py-4 px-6 bg-[#03C75A] text-white rounded-xl hover:bg-[#02b351] transition-colors font-bold"
+                    >
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
+                      </svg>
+                      네이버 블로그 바로가기
+                    </a>
+                  )}
+                  {channel.referenceUrl2 && (
+                    <a 
+                      href={channel.referenceUrl2}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 py-4 px-6 bg-[#03C75A] text-white rounded-xl hover:bg-[#02b351] transition-colors font-bold"
+                    >
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
+                      </svg>
+                      네이버 블로그 바로가기 2
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {embed1 && (
+                    <div className="aspect-video rounded-xl overflow-hidden">
+                      <iframe 
+                        src={embed1} 
+                        className="w-full h-full" 
+                        allowFullScreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    </div>
+                  )}
+                  {embed2 && (
+                    <div className="aspect-video rounded-xl overflow-hidden">
+                      <iframe 
+                        src={embed2} 
+                        className="w-full h-full" 
+                        allowFullScreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
