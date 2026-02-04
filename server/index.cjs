@@ -9,6 +9,7 @@ const channelRoutes = require('./routes/channels.cjs');
 const inquiryRoutes = require('./routes/inquiries.cjs');
 const documentRoutes = require('./routes/documents.cjs');
 const newsRoutes = require('./routes/news.cjs');
+const ogRoutes = require('./routes/og.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,6 +28,7 @@ app.use('/api/channels', channelRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/og', ogRoutes);
 
 async function initDatabase() {
   try {

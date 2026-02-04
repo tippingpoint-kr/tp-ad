@@ -60,9 +60,18 @@ const getEmbedUrl = (url: string): string | null => {
   return null;
 };
 
+interface OgPreview {
+  title: string;
+  image: string;
+  description: string;
+  url: string;
+}
+
 const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loadingNews, setLoadingNews] = useState(false);
+  const [blogPreviews, setBlogPreviews] = useState<OgPreview[]>([]);
+  const [loadingPreviews, setLoadingPreviews] = useState(false);
 
   useEffect(() => {
     if (channel?.category === 'press') {
@@ -72,6 +81,20 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
         .then(data => setNews(data))
         .catch(err => console.error('Error fetching news:', err))
         .finally(() => setLoadingNews(false));
+    } else if (channel?.category === 'blog') {
+      const urls = [channel.referenceUrl1, channel.referenceUrl2].filter(Boolean);
+      if (urls.length > 0) {
+        setLoadingPreviews(true);
+        Promise.all(
+          urls.map(url => 
+            fetch(`/api/og/preview?url=${encodeURIComponent(url)}`)
+              .then(res => res.json())
+          )
+        )
+          .then(data => setBlogPreviews(data))
+          .catch(err => console.error('Error fetching previews:', err))
+          .finally(() => setLoadingPreviews(false));
+      }
     }
   }, [channel]);
 
@@ -176,32 +199,47 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
             <div className="border-t pt-8">
               <h3 className="text-center font-bold text-xl mb-6">REFERENCE</h3>
               {isBlog ? (
-                <div className="flex flex-col gap-3">
-                  {channel.referenceUrl1 && (
-                    <a 
-                      href={channel.referenceUrl1}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-4 px-6 bg-[#03C75A] text-white rounded-xl hover:bg-[#02b351] transition-colors font-bold"
-                    >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
-                      </svg>
-                      네이버 블로그 바로가기
-                    </a>
-                  )}
-                  {channel.referenceUrl2 && (
-                    <a 
-                      href={channel.referenceUrl2}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 py-4 px-6 bg-[#03C75A] text-white rounded-xl hover:bg-[#02b351] transition-colors font-bold"
-                    >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
-                      </svg>
-                      네이버 블로그 바로가기 2
-                    </a>
+                <div className="flex flex-col gap-4">
+                  {loadingPreviews ? (
+                    <p className="text-center text-gray-400">블로그 정보를 불러오는 중...</p>
+                  ) : blogPreviews.length > 0 ? (
+                    blogPreviews.map((preview, idx) => (
+                      <a 
+                        key={idx}
+                        href={preview.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex gap-4 p-4 rounded-xl border border-gray-200 hover:border-[#03C75A] hover:shadow-lg transition-all bg-white"
+                      >
+                        {preview.image ? (
+                          <img 
+                            src={preview.image} 
+                            alt={preview.title}
+                            className="w-32 h-24 object-cover rounded-lg flex-shrink-0"
+                          />
+                        ) : (
+                          <div className="w-32 h-24 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex-shrink-0 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-[#03C75A]" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
+                            </svg>
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-gray-900 line-clamp-2 mb-2">{preview.title || '네이버 블로그'}</h4>
+                          {preview.description && (
+                            <p className="text-sm text-gray-500 line-clamp-2">{preview.description}</p>
+                          )}
+                          <div className="flex items-center gap-1 mt-2 text-[#03C75A] text-xs font-medium">
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M16.273 12.845 7.376 0H0v24h7.726V11.155L16.624 24H24V0h-7.727v12.845z"/>
+                            </svg>
+                            NAVER Blog
+                          </div>
+                        </div>
+                      </a>
+                    ))
+                  ) : (
+                    <p className="text-center text-gray-400">블로그 정보를 불러올 수 없습니다.</p>
                   )}
                 </div>
               ) : (
