@@ -308,7 +308,7 @@ const AdminChannels: React.FC = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {formData.category === 'press' ? '월 평균 페이지뷰' : '구독자수'}
+                    {formData.category === 'press' ? '월 평균 페이지뷰' : formData.category === 'blog' ? '일 평균 방문자수' : '구독자수'}
                   </label>
                   <input
                     type="text"

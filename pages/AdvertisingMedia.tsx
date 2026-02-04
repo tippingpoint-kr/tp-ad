@@ -119,7 +119,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
               )}
             </div>
 
-            <p className="text-gray-600 mb-2">{isPress ? '월 평균 페이지뷰' : '구독자'} <span className="font-bold text-black">{channel.followers}</span></p>
+            <p className="text-gray-600 mb-2">{isPress ? '월 평균 페이지뷰' : channel.category === 'blog' ? '일 평균 방문자수' : '구독자'} <span className="font-bold text-black">{channel.followers}</span></p>
             
             <p className="text-gray-600 text-sm max-w-md mx-auto mb-8">
               {channel.description}
