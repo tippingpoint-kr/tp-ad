@@ -21,6 +21,7 @@ const categories = [
   { id: 'press', name: '언론보도' },
   { id: 'blog', name: '블로그' },
   { id: 'reputation', name: '온라인평판관리' },
+  { id: 'vote', name: '투표' },
 ];
 
 const AdminChannels: React.FC = () => {

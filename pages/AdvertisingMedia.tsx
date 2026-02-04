@@ -286,6 +286,7 @@ const AdvertisingMedia: React.FC = () => {
     { id: 'press', name: '언론보도' },
     { id: 'blog', name: '블로그' },
     { id: 'reputation', name: '온라인평판관리' },
+    { id: 'vote', name: '투표' },
   ];
 
   useEffect(() => {
@@ -336,6 +337,8 @@ const AdvertisingMedia: React.FC = () => {
         return { subtitle: '자연스러운 블로그 바이럴 마케팅', title: 'BLOG' };
       case 'reputation':
         return { subtitle: '브랜드 이미지 관리 및 평판 개선', title: 'REPUTATION' };
+      case 'vote':
+        return { subtitle: '트로트 팬덤 투표 및 이벤트', title: 'VOTE' };
       default:
         return { subtitle: '', title: '' };
     }
@@ -440,7 +443,7 @@ const AdvertisingMedia: React.FC = () => {
                   <p className="text-center text-gray-500 mb-8">다년간의 경험으로 위기를 기회로 바꿉니다</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
                     <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
-                      <div className="text-tp-red font-black text-2xl mb-2">8개</div>
+                      <div className="text-tp-red font-black text-2xl mb-2">14개</div>
                       <p className="text-gray-700 text-sm">트로트 특화 유튜브 채널 운영<br/><span className="text-gray-500 text-xs">(이미 리딩 채널로 콘텐츠 확산 가능)</span></p>
                     </div>
                     <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
