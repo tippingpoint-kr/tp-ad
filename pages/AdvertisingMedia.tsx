@@ -380,13 +380,14 @@ const AdvertisingMedia: React.FC = () => {
               
               {(activeTab === 'fandom' || activeTab === 'general') && (
                 <>
+                  <p className="text-tp-red font-bold text-lg mb-4">
+                    "시니어의 마음을 가장 잘 아는 파트너, 티핑포인트입니다."
+                  </p>
                   <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
-                    약 10년간 다양한 콘텐츠를 만들어가며 SNS 채널을 직접 운영한 노하우를 바탕으로 각 채널별 담당자들과
-                    10명 이상의 에디터들이 트렌디한 콘텐츠를 제작해 최상의 채널을 유지 및 관리하고 있습니다.
+                    티핑포인트는 단순한 운영을 넘어, 시니어 팬덤의 정서와 문화를 깊이 파고듭니다. '대학' 시리즈 채널을 통해 구축한 탄탄한 팬덤 네트워크와 10명 이상의 베테랑 에디터들이 시니어 타겟에 최적화된 트렌디한 콘텐츠를 매일 생산합니다.
                   </p>
                   <p className="text-gray-700">
-                    <span className="text-blue-600 font-bold">브랜드 타겟 맞춤 채널 추천 및 업로드</span>를 도와드리며, 
-                    <span className="text-blue-600 font-bold">저렴한 가격으로 자연스러운 노출</span>을 희망하는 광고주분들께 추천드립니다.
+                    브랜드가 전하고 싶은 메시지를 시니어가 가장 좋아하는 언어로 번역하여, 강력한 팬덤의 지지를 이끌어내는 최상의 마케팅 솔루션을 제공합니다.
                   </p>
                 </>
               )}
