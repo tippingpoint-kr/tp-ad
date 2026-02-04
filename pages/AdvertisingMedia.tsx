@@ -400,14 +400,148 @@ const AdvertisingMedia: React.FC = () => {
                 </p>
               )}
 
-              {activeTab === 'reputation' && (
-                <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  온라인 평판 모니터링 및 관리를 통해 브랜드 이미지를 개선하고 위기 상황에 신속하게 대응합니다.
-                </p>
-              )}
             </div>
 
-            {loading ? (
+            {activeTab === 'reputation' ? (
+              <div className="border-t border-gray-200 pt-12 space-y-16">
+                <section className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8">
+                  <h2 className="text-2xl font-black text-center mb-8">팬덤 안정화 및 긍정 여론 구축 캠페인</h2>
+                  <p className="text-center text-gray-600 mb-8">
+                    최근 연예계는 탈세, 학폭, 갑질, 정치발언 등의 논란이 잦습니다.
+                  </p>
+                  <p className="text-center text-gray-700 font-medium mb-8 max-w-2xl mx-auto">
+                    특히 트로트 팬덤은 정보 확산 속도가 빠르고 콘텐츠 방향성에 큰 영향을 받기 때문에<br/>
+                    <span className="text-tp-red font-bold">즉각적이고 적극적인 대응</span>이 필요합니다.
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                      <div className="text-3xl mb-2">😰</div>
+                      <p className="text-sm text-gray-700 font-medium">논란 발생 시<br/>팬덤 이탈 조짐</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                      <div className="text-3xl mb-2">📉</div>
+                      <p className="text-sm text-gray-700 font-medium">부정 콘텐츠 증가<br/>및 시장 확산</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                      <div className="text-3xl mb-2">📭</div>
+                      <p className="text-sm text-gray-700 font-medium">긍정 콘텐츠<br/>부족</p>
+                    </div>
+                    <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                      <div className="text-3xl mb-2">🤷</div>
+                      <p className="text-sm text-gray-700 font-medium">팬덤 결집<br/>명분 부재</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h2 className="text-2xl font-black text-center mb-2">
+                    <span className="text-tp-red">티핑포인트</span>는
+                  </h2>
+                  <p className="text-center text-gray-500 mb-8">다년간의 경험으로 위기를 기회로 바꿉니다</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">8개</div>
+                      <p className="text-gray-700 text-sm">트로트 특화 유튜브 채널 운영<br/><span className="text-gray-500 text-xs">(이미 리딩 채널로 콘텐츠 확산 가능)</span></p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">50개+</div>
+                      <p className="text-gray-700 text-sm">일일 쇼츠 발행량</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">25건+</div>
+                      <p className="text-gray-700 text-sm">트롯매거진 일일 기사 발행</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">개발중</div>
+                      <p className="text-gray-700 text-sm">트로트 팬덤 슈퍼앱 프로젝트</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">다수</div>
+                      <p className="text-gray-700 text-sm">부정 여론을 긍정 여론으로<br/>뒤바꾼 경험</p>
+                    </div>
+                    <div className="border border-gray-200 rounded-xl p-5 hover:border-tp-red transition-colors">
+                      <div className="text-tp-red font-black text-2xl mb-2">다수</div>
+                      <p className="text-gray-700 text-sm">트로트 경연 프로그램 도중<br/>팬덤 결집 경험</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-gray-900 text-white rounded-2xl p-8">
+                  <h2 className="text-2xl font-black text-center mb-2">캠페인 상세내용</h2>
+                  <p className="text-center text-gray-400 mb-8">4주 집중 캠페인</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                    <div className="bg-white/10 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="bg-tp-red text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                        <h3 className="font-bold">유튜브 쇼츠</h3>
+                      </div>
+                      <p className="text-gray-300 text-sm">하루 6개 이상, 다채널 전방위 업로드</p>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="bg-tp-red text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                        <h3 className="font-bold">기사 발행</h3>
+                      </div>
+                      <p className="text-gray-300 text-sm">트롯매거진 하루 2건 이상 긍정 콘텐츠 발행</p>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="bg-tp-red text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                        <h3 className="font-bold">팬덤 심리 케어</h3>
+                      </div>
+                      <p className="text-gray-300 text-sm">팬덤 결집 메시지·긍정 서사 반복 노출</p>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="bg-tp-red text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                        <h3 className="font-bold">시장 리딩</h3>
+                      </div>
+                      <p className="text-gray-300 text-sm">타 채널 확산 효과로 긍정 여론 주도</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h2 className="text-2xl font-black text-center mb-8">기대 효과</h2>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                    <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-red-50 to-red-100">
+                      <div className="text-4xl mb-3">🛡️</div>
+                      <p className="font-bold text-gray-800">팬덤 이탈 방지</p>
+                    </div>
+                    <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100">
+                      <div className="text-4xl mb-3">📈</div>
+                      <p className="font-bold text-gray-800">부정 여론 감소</p>
+                    </div>
+                    <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-green-100">
+                      <div className="text-4xl mb-3">✨</div>
+                      <p className="font-bold text-gray-800">브랜드 이미지 회복</p>
+                    </div>
+                    <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100">
+                      <div className="text-4xl mb-3">🔄</div>
+                      <p className="font-bold text-gray-800">시장 분위기 반전</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="bg-gradient-to-r from-tp-red to-red-600 text-white rounded-2xl p-8 text-center">
+                  <h2 className="text-2xl font-black mb-4">티핑포인트는</h2>
+                  <p className="text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+                    트로트 업계에서 <strong>가장 강력한 콘텐츠 파이프라인</strong>과 <strong>실전 경험</strong>을 보유하고 있습니다.
+                  </p>
+                  <p className="text-white/90 mb-8 max-w-xl mx-auto">
+                    <span className="font-bold text-yellow-300">1개월 안에</span> 여론 방향을 안정화시키고 팬덤 결집력을 회복시킬 수 있습니다.
+                  </p>
+                  <div className="border-t border-white/20 pt-6 mt-6">
+                    <p className="text-white/80 text-sm mb-4">
+                      트로트 경연 대회에서 팬덤 결집이 필요한 상황에<br/>콘텐츠의 힘이 필요하시다면
+                    </p>
+                    <a href="/#contact" className="inline-block bg-white text-tp-red font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors">
+                      문의하기
+                    </a>
+                  </div>
+                </section>
+              </div>
+            ) : loading ? (
               <div className="border-t border-gray-200 pt-12">
                 <p className="text-center text-gray-400">채널을 불러오는 중...</p>
               </div>
