@@ -528,14 +528,19 @@ const AdvertisingMedia: React.FC = () => {
                   <p className="text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
                     트로트 업계에서 <strong>가장 강력한 콘텐츠 파이프라인</strong>과 <strong>실전 경험</strong>을 보유하고 있습니다.
                   </p>
-                  <p className="text-white/90 mb-8 max-w-xl mx-auto">
-                    <span className="font-bold text-yellow-300">1개월 안에</span> 여론 방향을 안정화시키고 팬덤 결집력을 회복시킬 수 있습니다.
+                  <p className="text-xl text-white mb-8 max-w-xl mx-auto">
+                    <span className="font-black text-white text-2xl">1개월 안에</span> 여론 방향을 안정화시키고 팬덤 결집력을 회복시킬 수 있습니다.
                   </p>
                   <div className="border-t border-white/20 pt-6 mt-6">
-                    <p className="text-white/80 text-sm mb-4">
+                    <p className="text-white text-lg mb-6">
                       트로트 경연 대회에서 팬덤 결집이 필요한 상황에<br/>콘텐츠의 힘이 필요하시다면
                     </p>
-                    <a href="/#contact" className="inline-block bg-white text-tp-red font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors">
+                    <a 
+                      href="https://open.kakao.com/o/sq34Yqei" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-white text-tp-red font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition-colors text-lg"
+                    >
                       문의하기
                     </a>
                   </div>
