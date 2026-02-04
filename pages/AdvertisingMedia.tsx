@@ -523,9 +523,9 @@ const AdvertisingMedia: React.FC = () => {
                   </div>
                 </section>
 
-                <section className="bg-gradient-to-r from-tp-red to-red-600 text-white rounded-2xl p-8 text-center">
-                  <h2 className="text-2xl font-black mb-4">티핑포인트는</h2>
-                  <p className="text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+                <section className="rounded-2xl p-8 text-center text-white" style={{ background: 'linear-gradient(to right, #E2002D, #dc2626)' }}>
+                  <h2 className="text-2xl font-black mb-4 text-white">티핑포인트는</h2>
+                  <p className="text-lg mb-6 max-w-2xl mx-auto leading-relaxed text-white">
                     트로트 업계에서 <strong>가장 강력한 콘텐츠 파이프라인</strong>과 <strong>실전 경험</strong>을 보유하고 있습니다.
                   </p>
                   <p className="text-xl text-white mb-8 max-w-xl mx-auto">
