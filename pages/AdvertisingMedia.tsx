@@ -330,7 +330,7 @@ const AdvertisingMedia: React.FC = () => {
       case 'fandom':
         return { subtitle: '트로트 팬덤 타겟, 높은 충성도의 시니어 구독자', title: 'FANDOM' };
       case 'general':
-        return { subtitle: '다양한 시니어 라이프스타일 콘텐츠', title: 'GENERAL' };
+        return { subtitle: '트로트 콘텐츠의 허브', title: 'GENERAL' };
       case 'press':
         return { subtitle: '공신력 있는 언론 매체를 통한 보도', title: 'PRESS' };
       case 'blog':
