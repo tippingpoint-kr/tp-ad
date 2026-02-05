@@ -12,6 +12,7 @@ const newsRoutes = require('./routes/news.cjs');
 const ogRoutes = require('./routes/og.cjs');
 
 const app = express();
+const isProduction = process.env.NODE_ENV === 'production';
 const PORT = process.env.PORT || 3001;
 
 app.use(cors({
@@ -22,6 +23,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist')));
+}
 
 app.use('/api/auth', authRoutes);
 app.use('/api/channels', channelRoutes);
@@ -102,6 +108,13 @@ async function initDatabase() {
   } catch (error) {
     console.error('Database initialization error:', error);
   }
+}
+
+// Catch-all route for client-side routing in production
+if (process.env.NODE_ENV === 'production') {
+  app.get('/{*splat}', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  });
 }
 
 initDatabase().then(() => {
