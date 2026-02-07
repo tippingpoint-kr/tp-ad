@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
