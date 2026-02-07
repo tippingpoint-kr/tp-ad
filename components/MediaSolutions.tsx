@@ -1,7 +1,9 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MediaSolutions: React.FC = () => {
+  const navigate = useNavigate();
   const channels = [
     {
       title: "유튜브 채널",
@@ -81,7 +83,7 @@ const MediaSolutions: React.FC = () => {
 
         {/* 통합 버튼 영역 - 카드 밖 중앙 배치 */}
         <div className="flex justify-center mt-12">
-          <button className="bg-white border-2 border-black text-black px-12 md:px-20 py-5 rounded-2xl font-black text-xl hover:bg-black hover:text-white transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 duration-300">
+          <button onClick={() => navigate('/advertising-media')} className="bg-white border-2 border-black text-black px-12 md:px-20 py-5 rounded-2xl font-black text-xl hover:bg-black hover:text-white transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 duration-300">
             통합 채널 소개 바로가기
           </button>
         </div>
