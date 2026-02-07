@@ -25,7 +25,9 @@ const Footer: React.FC = () => {
             </a>
             
             <a 
-              href="#" 
+              href="/public/tipping_introduction.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-8 rounded-2xl transition-all border border-white/5 hover:border-white/10"
             >
               <span className="text-xl font-bold">회사 소개서 바로가기</span>
