@@ -38,7 +38,7 @@ const TargetInsight: React.FC = () => {
             <div className="space-y-6">
               {[
                 { title: "압도적인 미디어 점유율", desc: "영웅대학 등 아티스트 특화 채널을 통한 타겟 집중 공략" },
-                { title: "공신력 있는 트롯 매거진", desc: "웹/블로그 통합 월 40만 이상 방문자가 신뢰하는 공식 채널" },
+                { title: "공신력 있는 트롯 매거진", desc: "웹/블로그 통합 월 50만 이상 방문자가 신뢰하는 공식 채널" },
                 { title: "실질적인 전환 임팩트", desc: "단순 노출을 넘어 팬덤의 팬심을 구매 전환으로 연결하는 바이럴 전략" }
               ].map((point, idx) => (
                 <div key={idx} className="flex gap-4 group">

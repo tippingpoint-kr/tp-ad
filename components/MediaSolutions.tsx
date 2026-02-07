@@ -15,7 +15,7 @@ const MediaSolutions: React.FC = () => {
     {
       title: "트롯매거진",
       subTitle: "(인터넷 언론 + 블로그)",
-      tagline: "월 40만+ PV 공식 미디어",
+      tagline: "월 50만+ PV 공식 미디어",
       desc: "국내 최초 트로트 전문 미디어로서 신뢰도 높은 기사 및 정보 제공",
       options: ["네이티브 애드 (기사)", "전면/배너 광고", "언론 보도, 기사 송출"],
       color: "bg-black"
