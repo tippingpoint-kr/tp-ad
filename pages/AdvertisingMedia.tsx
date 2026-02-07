@@ -592,7 +592,7 @@ const AdvertisingMedia: React.FC = () => {
                         )}
                       </div>
                       <h3 className="font-bold text-lg mb-1">{channel.name}</h3>
-                      <p className="text-gray-500 text-sm">팔로워 {channel.followers}</p>
+                      <p className="text-gray-500 text-sm">{channel.category === 'press' ? '월 평균 페이지뷰' : channel.category === 'blog' ? '일 평균 방문자수' : '팔로워'} {channel.followers}</p>
                     </div>
                   ))}
                 </div>
