@@ -1,7 +1,9 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
   // 사용자가 요청한 main.png 이미지의 직접 링크 주소입니다.
   const backgroundImageUrl = "/images/main.png"; 
 
@@ -42,8 +44,8 @@ const Hero: React.FC = () => {
             <a href="/public/tipping_introduction.pdf" target="_blank" rel="noopener noreferrer" className="bg-tp-red text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-black transition-all shadow-lg hover:shadow-xl inline-block text-center">
               미디어 믹스 제안서 받기
             </a>
-            <button className="border-2 border-white text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-white hover:text-black transition-all backdrop-blur-sm">
-              성과 사례 보기
+            <button onClick={() => navigate('/advertising-media')} className="border-2 border-white text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-white hover:text-black transition-all backdrop-blur-sm">
+              채널 바로 보기
             </button>
           </div>
         </div>
