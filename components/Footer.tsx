@@ -11,27 +11,39 @@ const Footer: React.FC = () => {
             Contact us<span className="text-tp-red">.</span>
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <a 
-              href="https://open.kakao.com/o/sq34Yqei" 
-              target="_blank" 
+              href="/public/tipping_introduction.pdf" 
+              target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-8 rounded-2xl transition-all border border-white/5 hover:border-white/10"
+              className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-6 rounded-2xl transition-all border border-white/5 hover:border-white/10"
             >
-              <span className="text-xl font-bold">카카오톡 문의</span>
-              <svg className="w-6 h-6 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="text-lg font-bold">회사 소개서 바로가기</span>
+              <svg className="w-5 h-5 flex-shrink-0 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </a>
+
+            <a 
+              href="https://docs.google.com/spreadsheets/d/1X_QhBEIl_XvTKHIMPIKnKDGbs6SBCQ7V/edit?usp=sharing&ouid=117105025796460421401&rtpof=true&sd=true" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-6 rounded-2xl transition-all border border-white/5 hover:border-white/10"
+            >
+              <span className="text-lg font-bold">채널 단가 안내 바로가기</span>
+              <svg className="w-5 h-5 flex-shrink-0 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </a>
             
             <a 
-              href="/public/tipping_introduction.pdf" 
-              target="_blank"
+              href="https://open.kakao.com/o/sq34Yqei" 
+              target="_blank" 
               rel="noopener noreferrer"
-              className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-8 rounded-2xl transition-all border border-white/5 hover:border-white/10"
+              className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-6 rounded-2xl transition-all border border-white/5 hover:border-white/10"
             >
-              <span className="text-xl font-bold">회사 소개서 바로가기</span>
-              <svg className="w-6 h-6 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="text-lg font-bold">카카오톡 문의</span>
+              <svg className="w-5 h-5 flex-shrink-0 ml-2 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </a>
