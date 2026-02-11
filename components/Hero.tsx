@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
             티핑포인트는 트로트 시니어 팬덤에 특화된 멀티채널 콘텐츠 파이프라인을 운영하는 디지털 미디어 기업입니다.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a href="/public/tipping_introduction.pdf" target="_blank" rel="noopener noreferrer" className="bg-tp-red text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-black transition-all shadow-lg hover:shadow-xl inline-block text-center">
+            <a href="https://docs.google.com/spreadsheets/d/1X_QhBEIl_XvTKHIMPIKnKDGbs6SBCQ7V/edit?usp=sharing&ouid=117105025796460421401&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" className="bg-tp-red text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-black transition-all shadow-lg hover:shadow-xl inline-block text-center">
               미디어 믹스 제안서 받기
             </a>
             <button onClick={() => navigate('/advertising-media')} className="border-2 border-white text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-white hover:text-black transition-all backdrop-blur-sm">
