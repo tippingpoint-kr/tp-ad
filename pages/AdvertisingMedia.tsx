@@ -606,6 +606,16 @@ const AdvertisingMedia: React.FC = () => {
                     />
                   </div>
                 )}
+
+                {(activeTab === 'press' || activeTab === 'blog') && (
+                  <div className="mt-16">
+                    <img 
+                      src="/images/media_solution_press.png" 
+                      alt="시니어 타겟 최적의 미디어 솔루션" 
+                      className="w-full rounded-2xl"
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <div className="border-t border-gray-200 pt-12">
