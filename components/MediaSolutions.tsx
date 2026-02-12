@@ -10,7 +10,8 @@ const MediaSolutions: React.FC = () => {
       tagline: "100만+ 구독자 네트워크",
       desc: "트로트 아티스트 별 타겟 채널과 트로트 종합 채널 운영",
       options: ["롱폼 브랜디드 콘텐츠", "숏폼 바이럴 광고", "커뮤니티 게시글 광고"],
-      color: "bg-tp-red"
+      color: "bg-tp-red",
+      tab: "fandom"
     },
     {
       title: "트롯매거진",
@@ -18,14 +19,16 @@ const MediaSolutions: React.FC = () => {
       tagline: "월 50만+ PV 공식 미디어",
       desc: "국내 최초 트로트 전문 미디어로서 신뢰도 높은 기사 및 정보 제공",
       options: ["네이티브 애드 (기사)", "전면/배너 광고", "언론 보도, 기사 송출"],
-      color: "bg-black"
+      color: "bg-black",
+      tab: "press"
     },
     {
       title: "티라이브",
       tagline: "트로트 팬덤 전용 수퍼앱",
       desc: "준비 개발중",
       options: ["라이브 커머스", "인스트림 광고", "PPL"],
-      color: "bg-black"
+      color: "bg-black",
+      tab: null as string | null
     }
   ];
 
@@ -45,8 +48,11 @@ const MediaSolutions: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {channels.map((channel, idx) => (
-            <div key={idx} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 flex flex-col h-full shadow-lg hover:shadow-2xl transition-all duration-500 relative overflow-hidden group">
-              {/* Accent line */}
+            <div 
+              key={idx} 
+              className={`bg-white border border-gray-100 rounded-[2.5rem] p-10 flex flex-col h-full shadow-lg hover:shadow-2xl transition-all duration-500 relative overflow-hidden group ${channel.tab ? 'cursor-pointer' : ''}`}
+              onClick={() => channel.tab && navigate(`/advertising-media?tab=${channel.tab}&scroll=media-solution`)}
+            >
               <div className={`absolute top-0 left-0 w-full h-2 ${channel.color}`}></div>
               
               <div className="mb-6">

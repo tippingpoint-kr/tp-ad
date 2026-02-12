@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -275,10 +275,12 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ channel, onClose }) => {
 };
 
 const AdvertisingMedia: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('fandom');
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState<TabType>((searchParams.get('tab') as TabType) || 'fandom');
   const [selectedChannel, setSelectedChannel] = useState<Channel | null>(null);
   const [dbChannels, setDbChannels] = useState<DBChannel[]>([]);
   const [loading, setLoading] = useState(true);
+  const mediaSolutionRef = useRef<HTMLDivElement>(null);
 
   const tabs = [
     { id: 'fandom', name: '시니어 팬덤 채널' },
@@ -303,6 +305,14 @@ const AdvertisingMedia: React.FC = () => {
     };
     fetchChannels();
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!loading && searchParams.get('scroll') === 'media-solution' && mediaSolutionRef.current) {
+      setTimeout(() => {
+        mediaSolutionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [loading, searchParams]);
 
   const convertDBChannel = (ch: DBChannel): Channel => ({
     id: String(ch.id),
@@ -598,7 +608,7 @@ const AdvertisingMedia: React.FC = () => {
                 </div>
 
                 {(activeTab === 'fandom' || activeTab === 'general') && (
-                  <div className="mt-16">
+                  <div className="mt-16" ref={mediaSolutionRef}>
                     <img 
                       src="/images/media_solution.png" 
                       alt="시니어 타겟 최적의 미디어 솔루션" 
@@ -608,7 +618,7 @@ const AdvertisingMedia: React.FC = () => {
                 )}
 
                 {(activeTab === 'press' || activeTab === 'blog') && (
-                  <div className="mt-16">
+                  <div className="mt-16" ref={mediaSolutionRef}>
                     <img 
                       src="/images/media_solution_press.png" 
                       alt="시니어 타겟 최적의 미디어 솔루션" 
