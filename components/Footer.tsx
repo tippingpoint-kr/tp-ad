@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <a 
-              href="https://drive.google.com/file/d/1_PklXE0-RKqkAEo6-9aNNp4TO5uru_fE/view?usp=sharing" 
+              href="https://drive.google.com/file/d/1UxrEepPMK1s-GG6uPOhSreQ0L-ERshFR/view?usp=sharing" 
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-6 rounded-2xl transition-all border border-white/5 hover:border-white/10"
