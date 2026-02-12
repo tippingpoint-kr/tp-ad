@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <a 
-              href="/public/tipping_introduction.pdf" 
+              href="https://drive.google.com/file/d/1GC8bw8YOeAWbdpuQXf0z7VrYGec9q9LB/view?usp=sharing" 
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between bg-zinc-900/50 hover:bg-zinc-800 p-6 rounded-2xl transition-all border border-white/5 hover:border-white/10"
